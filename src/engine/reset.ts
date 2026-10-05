@@ -29,3 +29,18 @@ export function weeklyPeriodStart(now: Date, cfg: ResetConfig = defaultResetConf
 export function nextWeeklyReset(now: Date, cfg: ResetConfig = defaultResetConfig): Date {
   return new Date(new Date(weeklyPeriodStart(now, cfg)).getTime() + 7 * DAY_MS)
 }
+
+export function nextDailyReset(now: Date, cfg: ResetConfig = defaultResetConfig): Date {
+  return new Date(new Date(dailyPeriodStart(now, cfg)).getTime() + DAY_MS)
+}
+
+/** "2d 4h" / "5h 12m" / "8m" until a future time. */
+export function formatCountdown(now: Date, target: Date): string {
+  const mins = Math.max(0, Math.floor((target.getTime() - now.getTime()) / 60_000))
+  const d = Math.floor(mins / 1440)
+  const h = Math.floor((mins % 1440) / 60)
+  const m = mins % 60
+  if (d > 0) return `${d}d ${h}h`
+  if (h > 0) return `${h}h ${m}m`
+  return `${m}m`
+}
