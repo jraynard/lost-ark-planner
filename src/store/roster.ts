@@ -12,6 +12,7 @@ interface RosterState {
   update: (id: string, draft: CharacterDraft) => void
   remove: (id: string) => void
   setGoldEarner: (id: string, goldEarner: boolean) => void
+  addLearnedRaid: (id: string, raidId: string) => void
   loadExample: () => void
   clear: () => void
 }
@@ -41,6 +42,12 @@ export const useRoster = create<RosterState>()(
       setGoldEarner: (id, goldEarner) =>
         set((s) => ({
           characters: s.characters.map((c) => (c.id === id ? { ...c, goldEarner } : c)),
+        })),
+      addLearnedRaid: (id, raidId) =>
+        set((s) => ({
+          characters: s.characters.map((c) =>
+            c.id === id && !c.learnedRaids.includes(raidId) ? { ...c, learnedRaids: [...c.learnedRaids, raidId] } : c,
+          ),
         })),
       loadExample: () => set({ characters: seedRoster.map((c) => ({ ...c })) }),
       clear: () => set({ characters: [] }),

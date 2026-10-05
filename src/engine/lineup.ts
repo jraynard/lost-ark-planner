@@ -87,3 +87,22 @@ export function rosterSummary(roster: Character[], raids: Raid[] = allRaids): Ro
     overCap: earners.length > goldRules.goldEarnersPerRoster,
   }
 }
+
+export interface GroupUpgrade {
+  raid: Raid
+  /** Weekly gold gained by adding this raid to the character's learned content. */
+  gain: number
+}
+
+/** Group raids the character can enter but hasn't marked as learned, that would raise weekly gold. */
+export function groupUpgrades(char: LineupInput, raids: Raid[] = allRaids): GroupUpgrade[] {
+  const current = bestLineup(char, raids).total
+  return raids
+    .filter((r) => r.groupOnly && r.minIlvl <= char.ilvl && !char.learnedRaids.includes(r.id))
+    .map((raid) => ({
+      raid,
+      gain: bestLineup({ ...char, learnedRaids: [...char.learnedRaids, raid.id] }, raids).total - current,
+    }))
+    .filter((u) => u.gain > 0)
+    .sort((a, b) => b.gain - a.gain)
+}

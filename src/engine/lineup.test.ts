@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { seedRoster } from '../data/seed-roster'
-import { bestLineup, rosterSummary } from './lineup'
+import { bestLineup, groupUpgrades, rosterSummary } from './lineup'
 
 const solo = (ilvl: number) => ({ ilvl, learnedRaids: [] })
 const ids = (l: ReturnType<typeof bestLineup>) => l.raids.map((r) => r.id)
@@ -62,5 +62,21 @@ describe('rosterSummary', () => {
     expect(s.overCap).toBe(false)
     // 64,500 + 64,500 + 24,000 + 12,500 (Miriyanah: Thaemine + Echidna)
     expect(s.total).toBe(165500)
+  })
+})
+
+describe('groupUpgrades', () => {
+  it('main at 1705: Horizon Cathedral 1 is the best group upgrade (+13,500), as in the plan doc', () => {
+    const ups = groupUpgrades(solo(1705.66))
+    expect(ups[0]).toMatchObject({ raid: { id: 'horizon-1' }, gain: 13500 })
+    expect(ups.find((u) => u.raid.id === 'act3-hard')?.gain).toBe(6000)
+    // Same gold as the solo version: not an upgrade.
+    expect(ups.find((u) => u.raid.id === 'act4-normal')).toBeUndefined()
+  })
+
+  it('skips raids already learned or above the item level', () => {
+    const ups = groupUpgrades({ ilvl: 1705.66, learnedRaids: ['horizon-1'] })
+    expect(ups.map((u) => u.raid.id)).not.toContain('horizon-1')
+    expect(ups.map((u) => u.raid.id)).not.toContain('serca-matchmaking')
   })
 })
