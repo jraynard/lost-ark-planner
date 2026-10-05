@@ -61,3 +61,14 @@ export function rankBreakpoints(roster: Character[], raids: Raid[] = allRaids): 
 export function upcomingMilestones(ilvl: number, milestones: number[]): number[] {
   return milestones.filter((m) => m > ilvl).sort((a, b) => a - b)
 }
+
+/** Every future breakpoint in order. Honing estimates are cumulative from the current item level. */
+export function breakpointLadder(char: BreakpointInput, raids: Raid[] = allRaids): Breakpoint[] {
+  const ladder: Breakpoint[] = []
+  let step = nextBreakpoint(char, raids)
+  while (step) {
+    ladder.push({ ...step, honing: honingEstimate(char.ilvl, step.targetIlvl) })
+    step = nextBreakpoint({ ...char, ilvl: step.targetIlvl }, raids)
+  }
+  return ladder
+}
