@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react'
 import { PageHeader } from '../../app/PageHeader'
+import { AboutSection } from './AboutSection'
 import { ExportSection } from './ExportSection'
-import { GameDataSection } from './GameDataSection'
 import { ImportPanel } from './ImportPanel'
 import { PricesSection } from './PricesSection'
 
 export function DataPage() {
   return (
     <>
-      <PageHeader title="Data">Sharing your roster with another device, material prices and game data updates.</PageHeader>
+      <PageHeader title="Data">Sharing your roster with another device, material prices and app version.</PageHeader>
       <Section title="Share to another device">
         <ExportSection />
       </Section>
@@ -18,8 +18,8 @@ export function DataPage() {
       <Section title="Material prices">
         <PricesSection />
       </Section>
-      <Section title="Game data">
-        <GameDataSection />
+      <Section title="Version">
+        <AboutSection />
       </Section>
     </>
   )

@@ -2,9 +2,7 @@
 
 Live at https://lostark.omixia.com/ (deployed from `main` by GitHub Actions).
 
-Turns `docs/progression-plan.md` into a calculator: enter your roster, get each character's best
-weekly raids, gold by binding type, the next item-level breakpoint worth chasing, a resetting
-checklist and drop triage.
+Helps plan out raid assignments and progression in Lost Ark.
 
 ```sh
 npm install
@@ -23,13 +21,3 @@ npm run build
 - `src/app/`: router and layout (sidebar on desktop, bottom tabs on mobile).
 
 Uses `HashRouter` so the build also works as a PWA or inside a Capacitor wrapper later.
-
-## Publishing a game data update
-
-The app ships with `data/game-data.json` and checks the copy on `main` for a newer `version`,
-asking the user before switching to it.
-
-1. Edit `data/game-data.json`.
-2. Bump `version` and add a `changelog` entry for it.
-3. `npm test` (validates the file and the gold fixtures).
-4. Commit and push to `main`.

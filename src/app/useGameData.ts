@@ -1,7 +1,7 @@
+import { bundledGameData } from '../data/game'
 import type { GameData } from '../data/schema'
-import { activeGameData, useGameDataStore } from '../store/gameData'
 
-/** The game data pages should plan with. */
+/** The game data pages plan with. It ships with each build; new data arrives as a new deploy. */
 export function useGameData(): GameData {
-  return activeGameData(useGameDataStore((s) => s.accepted))
+  return bundledGameData
 }
