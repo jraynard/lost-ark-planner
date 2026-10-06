@@ -98,3 +98,67 @@ Special honing: armor 20 stones for 3% *(20 for 3%)*; weapon 50 stones for 1.5% 
 - Adventure Island gold at 1700–1719: ____ *(2,373–3,630)*
 - Fate Ember gold threshold: ____ *(1640)*
 - Thaemine Solo gold: see raid table
+
+## Round 2: honing costs
+
+These fill in `honing` and `materialPrices` in `data/game-data.json`, so the Advisor can estimate
+materials and gold to each breakpoint. Leave blank anything you can't see.
+
+### Normal honing success rates
+
+The base success rate is shown in the honing window before any failed attempts.
+
+| Step | Armor base rate | Weapon base rate |
+| --- | --- | --- |
+| +10 → +11 | | |
+| +11 → +12 | | |
+| +12 → +13 | | |
+| +18 → +19 | | |
+| +19 → +20 | | |
+
+Missing tap costs from round 1:
+
+| Step | Piece | Materials per tap | Gold per tap |
+| --- | --- | --- | --- |
+| Normal +18 → +19 | Weapon | | |
+| Normal +19 → +20 | Armor | | |
+| Normal +10 → +11 | Armor | | |
+| Normal +10 → +11 | Weapon | | |
+
+### Normal honing mechanics
+
+The app assumes the following. Correct anything that's wrong.
+
+- After a failed attempt, the success chance goes up by 10% of the base rate, up to double the base rate: ____
+- Artisan's Energy goes up by about 46.51% of that attempt's success chance per fail: ____
+- At 100% Artisan's Energy the next attempt always succeeds: ____
+
+### Advanced honing XP
+
+The advanced honing window shows an XP bar.
+
+- XP needed per level (and does it change between levels 1–10, 11–20, 21–30, 31–40?): ____
+- XP gained for Success / Great Success / Great Success ×2: ____ / ____ / ____
+- Cost per tap at levels 1–10 and 11–20 (for the alts), armor and weapon:
+
+| Levels | Piece | Materials per tap | Gold per tap |
+| --- | --- | --- | --- |
+| 1–10 | Armor | | |
+| 1–10 | Weapon | | |
+| 11–20 | Armor | | |
+| 11–20 | Weapon | | |
+| 31–40 | Armor | | |
+| 31–40 | Weapon | | |
+
+- Does Ancestor's Grace (or anything else) change the XP per tap? ____
+
+### Market prices
+
+Rough Auction House price per single unit. Check the bundle size: prices are usually per 10 or 100.
+
+| Material | Gold per unit |
+| --- | --- |
+| Destiny Guardian Stone | |
+| Destiny Destruction Stone | |
+| Destiny Leapstone | |
+| Abidos Fusion Material | |
