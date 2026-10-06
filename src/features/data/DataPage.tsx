@@ -3,16 +3,20 @@ import { PageHeader } from '../../app/PageHeader'
 import { ExportSection } from './ExportSection'
 import { GameDataSection } from './GameDataSection'
 import { ImportPanel } from './ImportPanel'
+import { PricesSection } from './PricesSection'
 
 export function DataPage() {
   return (
     <>
-      <PageHeader title="Data">Game data updates, and sharing your roster with another device.</PageHeader>
+      <PageHeader title="Data">Sharing your roster with another device, material prices and game data updates.</PageHeader>
       <Section title="Share to another device">
         <ExportSection />
       </Section>
       <Section title="Import">
         <ImportPanel />
+      </Section>
+      <Section title="Material prices">
+        <PricesSection />
       </Section>
       <Section title="Game data">
         <GameDataSection />

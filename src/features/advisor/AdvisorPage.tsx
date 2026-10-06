@@ -1,20 +1,25 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router'
 import { formatGold } from '../../app/format'
 import { PageHeader } from '../../app/PageHeader'
-import { Badge, Card } from '../../app/ui'
+import { Badge, Button, Card } from '../../app/ui'
 import { useGameData } from '../../app/useGameData'
+import { useMaterialPrices } from '../../app/useMaterialPrices'
 import { raidLabel } from '../../data/game'
 import { breakpointLadder, upcomingMilestones, type Breakpoint } from '../../engine/breakpoints'
 import type { HoningEstimate } from '../../engine/honing'
+import { planToIlvl, specialHoningOptions, type HoningPlan } from '../../engine/honing-cost'
 import { formatIlvl } from '../../engine/ilvl'
 import { bestLineup } from '../../engine/lineup'
 import type { Character } from '../../engine/types'
 import { useRoster } from '../../store/roster'
+import { HoningCost, SpecialHoningTip } from './HoningCost'
 
 export function AdvisorPage() {
   const characters = useRoster((s) => s.characters)
   const data = useGameData()
+  const prices = useMaterialPrices()
+  const [sortBy, setSortBy] = useState<'ilvl' | 'cost'>('ilvl')
 
   if (characters.length === 0) {
     return (
@@ -31,24 +36,45 @@ export function AdvisorPage() {
   }
 
   const earners = characters.filter((c) => c.goldEarner)
-  const withLadder = earners.map((character) => ({ character, ladder: breakpointLadder(character, data) }))
-  const ranked = withLadder
-    .filter((c) => c.ladder.length > 0)
-    .sort((a, b) => b.ladder[0].goldPerIlvl - a.ladder[0].goldPerIlvl)
+  const withLadder = earners.map((character) => {
+    const ladder = breakpointLadder(character, data)
+    const plan = character.gear && ladder[0] ? planToIlvl(character.gear, ladder[0].targetIlvl, data, prices) : null
+    return { character, ladder, plan }
+  })
+  const climbing = withLadder.filter((c) => c.ladder.length > 0)
+  // Gold per gold spent needs a complete, fully priced cost estimate for everyone in the list.
+  const costComparable = climbing.every((c) => c.plan?.reachesTarget && c.plan.unpriced.length === 0)
+  const sort = costComparable ? sortBy : 'ilvl'
+  const ranked = climbing.sort((a, b) =>
+    sort === 'cost'
+      ? b.ladder[0].goldGain / b.plan!.totalGoldEquivalent - a.ladder[0].goldGain / a.plan!.totalGoldEquivalent
+      : b.ladder[0].goldPerIlvl - a.ladder[0].goldPerIlvl,
+  )
   const capped = withLadder.filter((c) => c.ladder.length === 0)
   const others = characters.filter((c) => !c.goldEarner).sort((a, b) => b.ilvl - a.ilvl)
 
   return (
     <>
       <PageHeader title="Advisor">
-        Where to push item level next, ranked by weekly gold gained per item level. Honing is the
-        rule of thumb: 1 normal success = 5 advanced levels = 5 piece levels; 6 piece levels = 1 item level.
+        Where to push item level next. Piece levels: 1 normal success = 5, 1 advanced level = 1; 6 piece
+        levels = 1 item level.
       </PageHeader>
 
+      <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
+        <span className="text-muted">Rank by</span>
+        <Button variant={sort === 'ilvl' ? 'primary' : 'secondary'} onClick={() => setSortBy('ilvl')}>
+          Gold per item level
+        </Button>
+        <Button variant={sort === 'cost' ? 'primary' : 'secondary'} onClick={() => setSortBy('cost')} disabled={!costComparable}
+          title={costComparable ? undefined : 'Needs gear, complete honing data and material prices for every character'}>
+          Gold per gold spent
+        </Button>
+      </div>
+
       <ol className="flex flex-col gap-4">
-        {ranked.map(({ character, ladder }, i) => (
+        {ranked.map(({ character, ladder, plan }, i) => (
           <li key={character.id}>
-            <PriorityCard rank={i + 1} character={character} ladder={ladder} />
+            <PriorityCard rank={i + 1} character={character} ladder={ladder} plan={plan} />
           </li>
         ))}
       </ol>
@@ -92,8 +118,10 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
-function PriorityCard({ rank, character, ladder }: { rank: number; character: Character; ladder: Breakpoint[] }) {
+function PriorityCard({ rank, character, ladder, plan }: { rank: number; character: Character; ladder: Breakpoint[]; plan: HoningPlan | null }) {
   const next = ladder[0]
+  const data = useGameData()
+  const special = character.gear ? specialHoningOptions(character.gear, data) : []
   return (
     <Card>
       <div className="flex flex-wrap items-start gap-x-4 gap-y-2">
@@ -117,6 +145,8 @@ function PriorityCard({ rank, character, ladder }: { rank: number; character: Ch
           <div className="mt-1 text-sm text-muted">
             <HoningText honing={next.honing} />
           </div>
+          {plan && <HoningCost plan={plan} />}
+          <SpecialHoningTip options={special} />
           <Milestones ilvl={character.ilvl} />
         </div>
       </div>
