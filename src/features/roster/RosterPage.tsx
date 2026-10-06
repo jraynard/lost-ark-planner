@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { PageHeader } from '../../app/PageHeader'
 import { Badge, Button, Card } from '../../app/ui'
-import { goldRules } from '../../data/raids'
+import { useGameData } from '../../app/useGameData'
 import { formatIlvl } from '../../engine/ilvl'
 import type { Character } from '../../engine/types'
 import { useRoster } from '../../store/roster'
@@ -11,6 +11,7 @@ import { roleLabels } from './roles'
 export function RosterPage() {
   const { characters, add, update, remove, setGoldEarner, loadExample } = useRoster()
   const [editing, setEditing] = useState<string | 'new' | null>(null)
+  const { goldRules } = useGameData()
 
   const sorted = [...characters].sort((a, b) => b.ilvl - a.ilvl)
   const earners = characters.filter((c) => c.goldEarner).length
@@ -27,7 +28,7 @@ export function RosterPage() {
         {characters.length > 0 && (
           <span className={`text-sm ${overCap ? 'text-warn' : 'text-muted'}`}>
             {earners} / {goldRules.goldEarnersPerRoster} gold earners
-            {overCap && ': only 6 characters per roster can earn raid gold'}
+            {overCap && `: only ${goldRules.goldEarnersPerRoster} characters per roster can earn raid gold`}
           </span>
         )}
       </div>

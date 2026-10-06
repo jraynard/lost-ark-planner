@@ -4,8 +4,9 @@ import { formatGold } from '../../app/format'
 import { PageHeader } from '../../app/PageHeader'
 import { useNow } from '../../app/useNow'
 import { Card } from '../../app/ui'
-import { raidLabel } from '../../data/raids'
-import { tasks, type Task } from '../../data/tasks'
+import { useGameData } from '../../app/useGameData'
+import { raidLabel } from '../../data/game'
+import type { Task } from '../../data/schema'
 import { formatIlvl } from '../../engine/ilvl'
 import { bestLineup } from '../../engine/lineup'
 import {
@@ -18,13 +19,13 @@ import {
 import { doneKeys, useChecklist, type Cadence } from '../../store/checklist'
 import { useRoster } from '../../store/roster'
 
-const characterTasks = tasks.filter((t) => t.scope === 'character')
-const rosterTasks = tasks.filter((t) => t.scope === 'roster')
-
 export function ChecklistPage() {
   const now = useNow()
   const characters = useRoster((s) => s.characters)
   const { daily, weekly, toggle } = useChecklist()
+  const data = useGameData()
+  const characterTasks = data.tasks.filter((t) => t.scope === 'character')
+  const rosterTasks = data.tasks.filter((t) => t.scope === 'roster')
 
   const weekPeriod = weeklyPeriodStart(now)
   const dayPeriod = dailyPeriodStart(now)
@@ -50,7 +51,7 @@ export function ChecklistPage() {
   const sorted = [...characters].sort((a, b) => b.ilvl - a.ilvl)
   const raidPlans = sorted
     .filter((c) => c.goldEarner)
-    .map((c) => ({ character: c, raids: bestLineup(c).raids }))
+    .map((c) => ({ character: c, raids: bestLineup(c, data).raids }))
     .filter((p) => p.raids.length > 0)
   const allRaidKeys = raidPlans.flatMap((p) => p.raids.map((r) => ({ key: `${p.character.id}:${r.id}`, gold: r.gold ?? 0 })))
   const raidsDone = allRaidKeys.filter((r) => weekDone.has(r.key))

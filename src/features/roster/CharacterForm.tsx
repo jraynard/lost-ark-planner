@@ -1,13 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { Button, Field, inputClass } from '../../app/ui'
 import { classNames } from '../../data/classes'
-import { raidLabel, raids } from '../../data/raids'
+import { useGameData } from '../../app/useGameData'
+import { raidLabel } from '../../data/game'
 import { formatIlvl, GEAR_SLOTS, ilvlFromGear, uniformGear } from '../../engine/ilvl'
 import type { CharacterRole, GearLevel, GearSlot } from '../../engine/types'
 import type { CharacterDraft } from '../../store/roster'
 import { roleLabels } from './roles'
-
-const groupRaids = raids.filter((r) => r.groupOnly)
 
 const emptyDraft: CharacterDraft = {
   name: '',
@@ -29,6 +28,7 @@ export function CharacterForm({
   onSave: (draft: CharacterDraft) => void
   onCancel: () => void
 }) {
+  const groupRaids = useGameData().raids.filter((r) => r.groupOnly)
   const start = initial ?? emptyDraft
   const [draft, setDraft] = useState(start)
   const [ilvlText, setIlvlText] = useState(start.ilvl ? String(start.ilvl) : '')

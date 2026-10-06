@@ -3,9 +3,8 @@ import { Link } from 'react-router'
 import { formatGold } from '../../app/format'
 import { PageHeader } from '../../app/PageHeader'
 import { Badge, Card } from '../../app/ui'
-import { QUEST_ILVL } from '../../data/progression'
-import { raidLabel } from '../../data/raids'
-import { eventMilestones } from '../../data/tasks'
+import { useGameData } from '../../app/useGameData'
+import { raidLabel } from '../../data/game'
 import { breakpointLadder, upcomingMilestones, type Breakpoint } from '../../engine/breakpoints'
 import type { HoningEstimate } from '../../engine/honing'
 import { formatIlvl } from '../../engine/ilvl'
@@ -15,6 +14,7 @@ import { useRoster } from '../../store/roster'
 
 export function AdvisorPage() {
   const characters = useRoster((s) => s.characters)
+  const data = useGameData()
 
   if (characters.length === 0) {
     return (
@@ -31,7 +31,7 @@ export function AdvisorPage() {
   }
 
   const earners = characters.filter((c) => c.goldEarner)
-  const withLadder = earners.map((character) => ({ character, ladder: breakpointLadder(character) }))
+  const withLadder = earners.map((character) => ({ character, ladder: breakpointLadder(character, data) }))
   const ranked = withLadder
     .filter((c) => c.ladder.length > 0)
     .sort((a, b) => b.ladder[0].goldPerIlvl - a.ladder[0].goldPerIlvl)
@@ -170,8 +170,9 @@ function HoningText({ honing }: { honing: HoningEstimate }) {
 }
 
 function Milestones({ ilvl }: { ilvl: number }) {
+  const data = useGameData()
   if (ilvl < 1700) return null
-  const ahead = upcomingMilestones(ilvl, eventMilestones)
+  const ahead = upcomingMilestones(ilvl, data.eventMilestones)
   if (ahead.length === 0) return null
   return (
     <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-muted">
@@ -181,14 +182,16 @@ function Milestones({ ilvl }: { ilvl: number }) {
           {m}
         </Badge>
       ))}
-      <span>(unconfirmed; events end Jan 20, 2027)</span>
+      <span>(unconfirmed; events end {new Date(`${data.eventsEnd}T00:00:00`).toLocaleDateString('en-US', { dateStyle: 'medium' })})</span>
     </div>
   )
 }
 
 function OtherCard({ character }: { character: Character }) {
-  const questing = character.ilvl < QUEST_ILVL
-  const lineupAtQuest = bestLineup({ ...character, ilvl: Math.max(character.ilvl, QUEST_ILVL) })
+  const data = useGameData()
+  const questIlvl = data.questIlvl
+  const questing = character.ilvl < questIlvl
+  const lineupAtQuest = bestLineup({ ...character, ilvl: Math.max(character.ilvl, questIlvl) }, data)
   return (
     <Card className="text-sm">
       <span className="font-medium">{character.name}</span>{' '}
@@ -196,7 +199,7 @@ function OtherCard({ character }: { character: Character }) {
       <p className="mt-1 text-muted">
         {questing ? (
           <>
-            Quest through South Kurzan (1600 set) and North Kurzan (1640 set) to reach {QUEST_ILVL} for free. At {QUEST_ILVL}{' '}
+            Quest through South Kurzan (1600 set) and North Kurzan (1640 set) to reach {questIlvl} for free. At {questIlvl}{' '}
             it could earn{' '}
           </>
         ) : (

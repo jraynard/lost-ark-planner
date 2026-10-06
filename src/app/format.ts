@@ -1,4 +1,4 @@
-import type { GoldType } from '../data/raids'
+import type { GoldType } from '../data/schema'
 
 export const formatGold = (n: number) => Math.round(n).toLocaleString('en-US')
 

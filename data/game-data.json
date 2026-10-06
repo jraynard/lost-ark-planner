@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 1,
+  "version": 1,
+  "publishedAt": "2026-10-05",
+  "changelog": [
+    {
+      "version": 1,
+      "notes": [
+        "First published game data, checked in game on 2026-10-05."
+      ]
+    }
+  ],
+  "goldRules": {
+    "raidsPerCharacter": 3,
+    "goldEarnersPerRoster": 6
+  },
+  "raids": [
+    {
+      "id": "echidna-solo",
+      "family": "echidna",
+      "name": "Echidna",
+      "mode": "solo",
+      "minIlvl": 1620,
+      "gold": 6100,
+      "goldType": "roster",
+      "groupOnly": false,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "echidna-normal",
+      "family": "echidna",
+      "name": "Echidna",
+      "mode": "normal",
+      "minIlvl": 1620,
+      "gold": 6100,
+      "goldType": "roster",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "echidna-hard",
+      "family": "echidna",
+      "name": "Echidna",
+      "mode": "hard",
+      "minIlvl": 1630,
+      "gold": 7200,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "behemoth-normal",
+      "family": "behemoth",
+      "name": "Behemoth",
+      "mode": "normal",
+      "minIlvl": 1620,
+      "gold": 7200,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "thaemine-solo",
+      "family": "thaemine",
+      "name": "Thaemine",
+      "mode": "solo",
+      "minIlvl": 1610,
+      "gold": 6400,
+      "goldType": "roster",
+      "groupOnly": false,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "aegir-solo",
+      "family": "aegir",
+      "name": "Aegir",
+      "mode": "solo",
+      "minIlvl": 1660,
+      "gold": 11500,
+      "goldType": "split",
+      "groupOnly": false,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "aegir-normal",
+      "family": "aegir",
+      "name": "Aegir",
+      "mode": "normal",
+      "minIlvl": 1660,
+      "gold": 11500,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "aegir-hard",
+      "family": "aegir",
+      "name": "Aegir",
+      "mode": "hard",
+      "minIlvl": 1680,
+      "gold": 18000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act2-solo",
+      "family": "act2",
+      "name": "Act 2",
+      "mode": "solo",
+      "minIlvl": 1670,
+      "gold": 16500,
+      "goldType": "split",
+      "groupOnly": false,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act2-normal",
+      "family": "act2",
+      "name": "Act 2",
+      "mode": "normal",
+      "minIlvl": 1670,
+      "gold": 16500,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act2-hard",
+      "family": "act2",
+      "name": "Act 2",
+      "mode": "hard",
+      "minIlvl": 1690,
+      "gold": 23000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act3-solo",
+      "family": "act3",
+      "name": "Act 3",
+      "mode": "solo",
+      "minIlvl": 1680,
+      "gold": 21000,
+      "goldType": "split",
+      "groupOnly": false,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act3-normal",
+      "family": "act3",
+      "name": "Act 3",
+      "mode": "normal",
+      "minIlvl": 1680,
+      "gold": 21000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act3-hard",
+      "family": "act3",
+      "name": "Act 3",
+      "mode": "hard",
+      "minIlvl": 1700,
+      "gold": 27000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "act4-solo",
+      "family": "act4",
+      "name": "Act 4",
+      "mode": "solo",
+      "minIlvl": 1700,
+      "gold": 27000,
+      "goldType": "split",
+      "groupOnly": false,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "act4-normal",
+      "family": "act4",
+      "name": "Act 4",
+      "mode": "normal",
+      "minIlvl": 1700,
+      "gold": 27000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "act4-hard",
+      "family": "act4",
+      "name": "Act 4",
+      "mode": "hard",
+      "minIlvl": 1720,
+      "gold": 38000,
+      "goldType": "tradable",
+      "groupOnly": true,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "horizon-1",
+      "family": "horizon",
+      "name": "Horizon Cathedral Stage 1",
+      "mode": "normal",
+      "minIlvl": 1700,
+      "gold": 30000,
+      "goldType": "character",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": true
+    },
+    {
+      "id": "horizon-2",
+      "family": "horizon",
+      "name": "Horizon Cathedral Stage 2",
+      "mode": "normal",
+      "minIlvl": 1720,
+      "gold": 40000,
+      "goldType": "character",
+      "groupOnly": true,
+      "patch": "2026-06-10",
+      "verified": false
+    },
+    {
+      "id": "final-day-solo",
+      "family": "final-day",
+      "name": "Final Day",
+      "mode": "solo",
+      "minIlvl": 1710,
+      "gold": 32000,
+      "goldType": "split",
+      "groupOnly": false,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "final-day-normal",
+      "family": "final-day",
+      "name": "Final Day",
+      "mode": "normal",
+      "minIlvl": 1710,
+      "gold": 32000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "final-day-hard",
+      "family": "final-day",
+      "name": "Final Day",
+      "mode": "hard",
+      "minIlvl": 1730,
+      "gold": 48000,
+      "goldType": "tradable",
+      "groupOnly": true,
+      "patch": "2026-09-16",
+      "verified": true
+    },
+    {
+      "id": "serca-matchmaking",
+      "family": "serca",
+      "name": "Serca",
+      "mode": "matchmaking",
+      "minIlvl": 1710,
+      "gold": 32000,
+      "goldType": "split",
+      "groupOnly": true,
+      "patch": "2026-09-16",
+      "verified": true
+    }
+  ],
+  "tasks": [
+    {
+      "id": "kurzan-front",
+      "label": "Kurzan Front",
+      "cadence": "daily",
+      "minIlvl": 1640,
+      "scope": "character",
+      "note": "Fate Ember gold is a bonus, not income."
+    },
+    {
+      "id": "guardian-raid",
+      "label": "Guardian raid",
+      "cadence": "daily",
+      "minIlvl": 1640,
+      "scope": "character",
+      "note": "Check accessory and bracelet drops before dismantling."
+    },
+    {
+      "id": "chaos-gate",
+      "label": "Chaos Gate (if scheduled)",
+      "cadence": "scheduled",
+      "minIlvl": 0,
+      "scope": "roster",
+      "note": "Check the in-game calendar; run on your highest characters."
+    },
+    {
+      "id": "adventure-island",
+      "label": "Adventure Island (gold days)",
+      "cadence": "scheduled",
+      "minIlvl": 0,
+      "scope": "roster",
+      "note": "2,373–3,630 gold at 1700–1719."
+    }
+  ],
+  "eventMilestones": [
+    1705,
+    1710,
+    1715,
+    1720
+  ],
+  "eventsEnd": "2027-01-20",
+  "questIlvl": 1640,
+  "honing": {
+    "mechanics": {
+      "failBonus": 0.1,
+      "maxRateMultiplier": 2,
+      "artisanPerFail": 0.4651,
+      "verified": false
+    },
+    "normal": [
+      {
+        "from": 18,
+        "piece": "armor",
+        "baseRate": null,
+        "cost": {
+          "materials": {
+            "destiny-guardian-stone": 1620,
+            "destiny-leapstone": 25,
+            "abidos-fusion": 15
+          },
+          "gold": 2110
+        }
+      },
+      {
+        "from": 18,
+        "piece": "weapon",
+        "baseRate": null,
+        "cost": null
+      },
+      {
+        "from": 19,
+        "piece": "armor",
+        "baseRate": null,
+        "cost": null
+      },
+      {
+        "from": 19,
+        "piece": "weapon",
+        "baseRate": null,
+        "cost": {
+          "materials": {
+            "destiny-destruction-stone": 2950,
+            "destiny-leapstone": 45,
+            "abidos-fusion": 35
+          },
+          "gold": 3830
+        }
+      }
+    ],
+    "advanced": [
+      {
+        "fromLevel": 20,
+        "toLevel": 30,
+        "piece": "armor",
+        "cost": {
+          "materials": {
+            "destiny-guardian-stone": 1000,
+            "destiny-leapstone": 18,
+            "abidos-fusion": 17
+          },
+          "gold": 2000
+        },
+        "xpPerLevel": null,
+        "outcomes": [
+          {
+            "chance": 0.8,
+            "xp": null
+          },
+          {
+            "chance": 0.15,
+            "xp": null
+          },
+          {
+            "chance": 0.05,
+            "xp": null
+          }
+        ]
+      },
+      {
+        "fromLevel": 20,
+        "toLevel": 30,
+        "piece": "weapon",
+        "cost": {
+          "materials": {
+            "destiny-destruction-stone": 1200,
+            "destiny-leapstone": 25,
+            "abidos-fusion": 28
+          },
+          "gold": 3000
+        },
+        "xpPerLevel": null,
+        "outcomes": [
+          {
+            "chance": 0.8,
+            "xp": null
+          },
+          {
+            "chance": 0.15,
+            "xp": null
+          },
+          {
+            "chance": 0.05,
+            "xp": null
+          }
+        ]
+      }
+    ],
+    "special": {
+      "stonesPerAttempt": {
+        "armor": 20,
+        "weapon": 50
+      },
+      "chanceByTargetLevel": {
+        "19": 0.03,
+        "20": 0.015
+      }
+    }
+  },
+  "materialPrices": {
+    "destiny-guardian-stone": null,
+    "destiny-destruction-stone": null,
+    "destiny-leapstone": null,
+    "abidos-fusion": null
+  }
+}

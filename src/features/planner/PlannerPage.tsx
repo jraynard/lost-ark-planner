@@ -2,7 +2,9 @@ import { Link } from 'react-router'
 import { formatGold, goldTypeLabels } from '../../app/format'
 import { PageHeader } from '../../app/PageHeader'
 import { Badge, Button, Card } from '../../app/ui'
-import { goldRules, raidLabel, type Raid } from '../../data/raids'
+import { useGameData } from '../../app/useGameData'
+import { raidLabel } from '../../data/game'
+import type { Raid } from '../../data/schema'
 import { formatIlvl } from '../../engine/ilvl'
 import { groupUpgrades, rosterSummary, type GoldBreakdown, type Lineup } from '../../engine/lineup'
 import type { Character } from '../../engine/types'
@@ -10,7 +12,9 @@ import { useRoster } from '../../store/roster'
 
 export function PlannerPage() {
   const characters = useRoster((s) => s.characters)
-  const summary = rosterSummary(characters)
+  const data = useGameData()
+  const { goldRules } = data
+  const summary = rosterSummary(characters, data)
 
   if (summary.goldEarnerCount === 0) {
     return (
@@ -77,8 +81,9 @@ function Totals({ total, breakdown, approx }: { total: number; breakdown: GoldBr
 
 function CharacterPlan({ character, lineup }: { character: Character; lineup: Lineup }) {
   const addLearnedRaid = useRoster((s) => s.addLearnedRaid)
-  const upgrades = groupUpgrades(character)
-  const freeSlots = goldRules.raidsPerCharacter - lineup.raids.length
+  const data = useGameData()
+  const upgrades = groupUpgrades(character, data)
+  const freeSlots = data.goldRules.raidsPerCharacter - lineup.raids.length
 
   return (
     <Card>

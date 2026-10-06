@@ -1,4 +1,5 @@
-import { raids as allRaids, type Raid } from '../data/raids'
+import { bundledGameData } from '../data/game'
+import type { GameData, Raid } from '../data/schema'
 import { honingEstimate, type HoningEstimate } from './honing'
 import { bestLineup, type Lineup } from './lineup'
 import type { Character } from './types'
@@ -17,14 +18,14 @@ export interface Breakpoint {
 type BreakpointInput = Pick<Character, 'ilvl' | 'learnedRaids'>
 
 /** The nearest item level above the character's where weekly raid gold goes up. */
-export function nextBreakpoint(char: BreakpointInput, raids: Raid[] = allRaids): Breakpoint | null {
-  const current = bestLineup(char, raids)
-  const thresholds = [...new Set(raids.map((r) => r.minIlvl))]
+export function nextBreakpoint(char: BreakpointInput, data: GameData = bundledGameData): Breakpoint | null {
+  const current = bestLineup(char, data)
+  const thresholds = [...new Set(data.raids.map((r) => r.minIlvl))]
     .filter((ilvl) => ilvl > char.ilvl)
     .sort((a, b) => a - b)
 
   for (const targetIlvl of thresholds) {
-    const next = bestLineup({ ...char, ilvl: targetIlvl }, raids)
+    const next = bestLineup({ ...char, ilvl: targetIlvl }, data)
     const goldGain = next.total - current.total
     if (goldGain <= 0) continue
     const currentIds = new Set(current.raids.map((r) => r.id))
@@ -47,11 +48,11 @@ export interface RankedBreakpoint {
 }
 
 /** Gold earners' next breakpoints, best weekly gold per item level first. */
-export function rankBreakpoints(roster: Character[], raids: Raid[] = allRaids): RankedBreakpoint[] {
+export function rankBreakpoints(roster: Character[], data: GameData = bundledGameData): RankedBreakpoint[] {
   return roster
     .filter((c) => c.goldEarner)
     .flatMap((character) => {
-      const breakpoint = nextBreakpoint(character, raids)
+      const breakpoint = nextBreakpoint(character, data)
       return breakpoint ? [{ character, breakpoint }] : []
     })
     .sort((a, b) => b.breakpoint.goldPerIlvl - a.breakpoint.goldPerIlvl)
@@ -63,12 +64,12 @@ export function upcomingMilestones(ilvl: number, milestones: number[]): number[]
 }
 
 /** Every future breakpoint in order. Honing estimates are cumulative from the current item level. */
-export function breakpointLadder(char: BreakpointInput, raids: Raid[] = allRaids): Breakpoint[] {
+export function breakpointLadder(char: BreakpointInput, data: GameData = bundledGameData): Breakpoint[] {
   const ladder: Breakpoint[] = []
-  let step = nextBreakpoint(char, raids)
+  let step = nextBreakpoint(char, data)
   while (step) {
     ladder.push({ ...step, honing: honingEstimate(char.ilvl, step.targetIlvl) })
-    step = nextBreakpoint({ ...char, ilvl: step.targetIlvl }, raids)
+    step = nextBreakpoint({ ...char, ilvl: step.targetIlvl }, data)
   }
   return ladder
 }
