@@ -1,11 +1,19 @@
 import type { ReactNode } from 'react'
 import { PageHeader } from '../../app/PageHeader'
+import { ExportSection } from './ExportSection'
 import { GameDataSection } from './GameDataSection'
+import { ImportPanel } from './ImportPanel'
 
 export function DataPage() {
   return (
     <>
       <PageHeader title="Data">Game data updates, and sharing your roster with another device.</PageHeader>
+      <Section title="Share to another device">
+        <ExportSection />
+      </Section>
+      <Section title="Import">
+        <ImportPanel />
+      </Section>
       <Section title="Game data">
         <GameDataSection />
       </Section>

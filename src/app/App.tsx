@@ -2,6 +2,7 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router'
 import { AdvisorPage } from '../features/advisor/AdvisorPage'
 import { ChecklistPage } from '../features/checklist/ChecklistPage'
 import { DataPage } from '../features/data/DataPage'
+import { ImportPage } from '../features/data/ImportPage'
 import { PlannerPage } from '../features/planner/PlannerPage'
 import { RosterPage } from '../features/roster/RosterPage'
 import { TriagePage } from '../features/triage/TriagePage'
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="checklist" element={<ChecklistPage />} />
           <Route path="triage" element={<TriagePage />} />
           <Route path="data" element={<DataPage />} />
+          <Route path="import" element={<ImportPage />} />
         </Route>
       </Routes>
     </HashRouter>

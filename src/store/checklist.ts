@@ -13,6 +13,8 @@ interface ChecklistState {
   daily: PeriodTicks
   weekly: PeriodTicks
   toggle: (cadence: Cadence, period: string, key: string) => void
+  /** Adds ticks for `period`, keeping any already made in that period. */
+  importTicks: (cadence: Cadence, period: string, keys: string[]) => void
 }
 
 const empty: PeriodTicks = { period: '', done: [] }
@@ -34,6 +36,8 @@ export const useChecklist = create<ChecklistState>()(
           else done.add(key)
           return { [cadence]: { period, done: [...done] } }
         }),
+      importTicks: (cadence, period, keys) =>
+        set((s) => ({ [cadence]: { period, done: [...new Set([...doneKeys(s[cadence], period), ...keys])] } })),
     }),
     {
       name: 'lost-ark-planner/checklist',
