@@ -10,4 +10,5 @@ export const navItems: NavItem[] = [
   { path: '/advisor', label: 'Advisor', icon: '📈' },
   { path: '/checklist', label: 'Checklist', icon: '✅' },
   { path: '/triage', label: 'Triage', icon: '🎒' },
+  { path: '/data', label: 'Data', icon: '💾' },
 ]

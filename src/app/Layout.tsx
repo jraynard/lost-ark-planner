@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from 'react-router'
 import { navItems } from './routes'
+import { UpdateBanner } from './UpdateBanner'
+import { useAutoUpdateCheck } from './useAutoUpdateCheck'
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -14,6 +16,7 @@ const tabClass = ({ isActive }: { isActive: boolean }) =>
   ].join(' ')
 
 export function Layout() {
+  useAutoUpdateCheck()
   return (
     <div className="flex h-full">
       <aside className="hidden w-56 shrink-0 flex-col gap-1 border-r border-border bg-surface p-4 md:flex">
@@ -28,6 +31,7 @@ export function Layout() {
 
       <main className="flex-1 overflow-y-auto px-4 pt-6 pb-24 md:px-8 md:pb-8">
         <div className="mx-auto max-w-5xl">
+          <UpdateBanner />
           <Outlet />
         </div>
       </main>
