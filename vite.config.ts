@@ -4,12 +4,13 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
-export default defineConfig(({ command, isPreview }) => ({
-  // Production builds are served from GitHub Pages at /lost-ark-planner/.
-  base: command === 'build' || isPreview ? '/lost-ark-planner/' : '/',
+export default defineConfig({
+  // Relative asset paths work at any address: the custom domain root, the github.io sub-path
+  // or a local preview. Routing is hash-based, so the page itself always loads from index.html.
+  base: './',
   plugins: [react(), tailwindcss()],
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
   },
-}))
+})
