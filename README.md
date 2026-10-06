@@ -1,5 +1,7 @@
 # Lost Ark Planner
 
+Live at https://jraynard.github.io/lost-ark-planner/ (deployed from `main` by GitHub Actions).
+
 Turns `docs/progression-plan.md` into a calculator: enter your roster, get each character's best
 weekly raids, gold by binding type, the next item-level breakpoint worth chasing, a resetting
 checklist and drop triage.
